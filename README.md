@@ -1,9 +1,5 @@
 + BikesCo
 
-**********************
-*	README       *
-**********************
-
 *********************************************************************************
 *  For the easiest interraction with the project, Visual Studio 2019 is preffered
 *
