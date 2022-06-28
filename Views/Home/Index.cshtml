@@ -1,0 +1,113 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+	var NotSameUser = TempData["NotSameUser"] as string;
+	var AdminSuspendedError = TempData["AdminSuspendedError"] as string;
+}
+
+@if (!string.IsNullOrEmpty(NotSameUser))
+{
+	<span class="alert-danger">@NotSameUser</span>
+}
+@if (!string.IsNullOrEmpty(AdminSuspendedError))
+{
+	<span class="alert-danger">@AdminSuspendedError</span>
+}
+
+<div style="background-image: url('/images/bikes.png');
+              background-position:center -300px;
+              max-height:350px; height: 275px; min-height:200px;
+              background-size: cover;
+              background-attachment: fixed;
+              background-repeat: no-repeat;">
+
+	<h1 style="text-align:center;
+                padding-top: 25px;
+                color:#E7A22E;
+                font-weight:bold;
+                font-size:45px;">
+		RIDE TOGETHER
+	</h1>
+
+
+	<div class="container" style="width100%; height:125px;
+								display:flex;
+								justify-content:space-between;
+								align-items:bottom;">
+
+		<div style="position:relative; width:30%; height:100%; text-align:center;
+                    display:flex;
+                    justify-content:center;
+                    background-color:#959595; border-radius:5px;
+                    margin-top:10px;">
+
+			<img src="/images/interrogatoire.png" alt="" style="position:absolute; top:-10px; width:40px; height:40px;" />
+			<p style="padding-top:30px; color:#EEEEEE;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+		</div>
+
+		<div style="position:relative; width:30%; height:100%; text-align:center;
+                    display:flex;
+                    justify-content:center;
+                    background-color:#959595; border-radius:5px;
+                    margin-top:10px;">
+			<img src="images/interrogatoire.png" alt="" style="position: absolute; top:-10px; width:40px; height:40px;" />
+			<p style="padding-top:30px; color:#EEEEEE;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+		</div>
+
+		<div style="position:relative; width:30%; height:100%; text-align:center;
+                    display:flex;
+                    justify-content:center;
+                    background-color:#959595; border-radius:5px;
+                    margin-top:10px;">
+			<img src="/images/interrogatoire.png" alt="" style="position: absolute; top:-10px; width:40px; height:40px;" />
+			<p style="padding-top:30px; color:#EEEEEE;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+		</div>
+	</div>
+</div>
+
+<div class="container" style="position:relative; margin-top:10px; width:100%;
+                              display:flex">
+
+	<img src="/images/bikes_2.jpg" alt="" style=" width:35%; height:100%;" />
+
+	<div style="padding-left:20px; text-align:justify; height:100%;">
+		<h2 style="color:#E7A22E; font-weight:bold;">A PROPOS DE NOUS</h2>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+			<br>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+		</p>
+		<h2 style="color:#E7A22E; font-weight:bold;">NOS SERVICES</h2>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+			<br>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+		</p>
+	</div>
+</div>
+
+
+<div class="container" style="position:relative; text-align:center; padding-top:30px;">
+	<a href="register" style="text-decoration:none;">
+		<h1 style="color:#E7A22E; font-weight:bold; font-size:25px;
+                    border-top: 1px #959595 solid;
+                    border-bottom: 1px #959595 solid;">
+			JOIN US
+		</h1>
+	</a>
+</div>
+
+<div style="background-image: url('/images/handshake.jpg'); background-position:center -400px;
+                              height:250px; background-size: cover; background-attachment: scroll; background-repeat: no-repeat;
+                              display: flex;justify-content:center;
+                              align-items:center; ">
+	<q style="font-style:italic; font-size:40px;">Some review by a fellow customer</q>
+</div>
+
+
+
+

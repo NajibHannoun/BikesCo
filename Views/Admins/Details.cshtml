@@ -1,0 +1,60 @@
+﻿@model BikesTest.Models.Admin
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+	<h4>Admin @Html.DisplayFor(model => model.id)</h4>
+    <hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.user.firstName)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.user.firstName)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.user.lastName)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.user.lastName)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.user.username)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.user.username)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.user.email)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.user.email)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.user.birthday)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.user.birthday)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.isCurrentlyLogged)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.isCurrentlyLogged)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.isSuspended)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.isSuspended)
+		</dd>
+	</dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

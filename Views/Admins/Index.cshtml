@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BikesTest.Models.Admin>
+
+@{
+	ViewData["Title"] = "Index";
+	var AdminSuspendedError = TempData["AdminSuspendedError"] as string;
+}
+
+<h1>Index</h1>
+
+@if (!string.IsNullOrEmpty(AdminSuspendedError))
+{
+	<span class="alert-danger">@AdminSuspendedError</span>
+}
+
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.id)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.user.firstName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.user.lastName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.user.username)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.isCurrentlyLogged)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.isSuspended)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.id)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.user.firstName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.user.lastName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.user.username)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.isCurrentlyLogged)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.isSuspended)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.id">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

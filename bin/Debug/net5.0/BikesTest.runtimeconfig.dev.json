@@ -1,0 +1,10 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Delta\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Delta\\.nuget\\packages",
+      "D:\\software\\vss_sdk\\NuGetPackages",
+      "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
+    ]
+  }
+}

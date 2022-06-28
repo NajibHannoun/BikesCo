@@ -1,0 +1,29 @@
+﻿@{
+	ViewData["Title"] = "Get Transaction";
+	var error = ViewData["error"] as string;
+}
+
+<h1>Get Transaction</h1>
+
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="GetTransaction">
+			<div class="form-group">
+				<label class="control-label">Customer Username</label>
+				<input id="username" name="username" class="form-control" />
+				@if (!string.IsNullOrEmpty(error))
+				{
+					<span class="alert-danger">@error</span>
+				}
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Get Transaction" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>

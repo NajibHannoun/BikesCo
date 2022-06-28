@@ -1,0 +1,65 @@
+﻿@model BikesTest.Models.Transaction
+
+@{
+	ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+	<h4>Transaction</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.rentalDate)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.rentalDate)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.returnDate)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.returnDate)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.durationOfTransaction)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.durationOfTransaction)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.customer.user.username)
+		</dt>
+		<dd class="col-md-12">
+			<a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.customer.id">@Html.DisplayFor(model => model.customer.user.username)</a>
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.bicycle_Id)
+		</dt>
+		<dd class="col-md-12">
+			<a asp-action="Details" asp-controller="Bicycles" asp-route-id="@Model.bicycle.id">@Html.DisplayFor(model => model.bicycle.id)</a>
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.admin.user.username)
+		</dt>
+		<dd class="col-md-12">
+			<a asp-action="Details" asp-controller="Admins" asp-route-id="@Model.admin.id">@Html.DisplayFor(model => model.admin.user.username)</a>
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.transactionType)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.transactionType)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.costOfTransaction)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.costOfTransaction)
+		</dd>
+	</dl>
+</div>
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>

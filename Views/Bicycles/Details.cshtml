@@ -1,0 +1,66 @@
+﻿@model BikesTest.Models.Bicycle
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Bicycle @Html.DisplayFor(model => model.id)</h4>
+    <hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.isCurrentlyRented)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.isCurrentlyRented)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.size)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.size)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.leassPrice)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.leassPrice)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.lastCheckupDate)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.lastCheckupDate)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.timesRented)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.timesRented)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.earningsToDate)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.earningsToDate)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.aquisutionDate)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.aquisutionDate)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.purchasePrice)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.purchasePrice)
+		</dd>
+	</dl>
+</div>
+<div>
+	<a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+	<a asp-action="Index">Back to List</a>
+</div>

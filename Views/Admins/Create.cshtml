@@ -1,0 +1,68 @@
+﻿@model BikesTest.Models.Admin
+
+@{
+    ViewData["Title"] = "Create";
+    var usernameError = ViewData["UsernameError"] as string;
+    var emailError = ViewData["EmailError"] as string;
+}
+
+<h1>Create</h1>
+
+<h4>Admin</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="user.firstName" class="control-label"></label>
+                <input asp-for="user.firstName" type="text" class="form-control" />
+                <span asp-validation-for="user.firstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="user.lastName" class="control-label"></label>
+                <input asp-for="user.lastName" type="text" class="form-control" />
+                <span asp-validation-for="user.lastName" class="text-danger"></span>
+            </div>
+			<div class="form-group">
+				<label asp-for="user.username" class="control-label"></label>
+				<input asp-for="user.username" type="text" class="form-control" />
+				<span asp-validation-for="user.username" class="text-danger"></span>
+				@if (!string.IsNullOrEmpty(usernameError))
+				{
+					<span class="alert-danger">@usernameError</span>
+				}
+			</div>
+			<div class="form-group">
+				<label asp-for="user.email" class="control-label"></label>
+				<input asp-for="user.email" type="email" class="form-control" />
+				<span asp-validation-for="user.email" class="text-danger"></span>
+				@if (!string.IsNullOrEmpty(emailError))
+				{
+					<span class="alert-danger">@emailError</span>
+				}
+			</div>
+            <div class="form-group">
+                <label asp-for="user.password" class="control-label"></label>
+                <input asp-for="user.password" type="password" class="form-control" />
+                <span asp-validation-for="user.password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="user.birthday" class="control-label"></label>
+                <input asp-for="user.birthday" type="date" class="form-control" />
+                <span asp-validation-for="user.birthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index"><input type="submit" value="Create" class="btn btn-primary" /></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

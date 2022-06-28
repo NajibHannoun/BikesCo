@@ -1,0 +1,66 @@
+﻿@model BikesTest.Models.Transaction
+
+@{
+    ViewData["Title"] = "Edit";
+	var errorMessage = ViewData["error"] as string;
+}
+
+<h1>Edit</h1>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+	<span class="alert-danger">@errorMessage</span>
+}
+
+<h4>Transaction</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+		<form asp-action="Edit">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="id" />
+			<div class="form-group">
+				<label asp-for="bicycle_Id" class="control-label"></label>
+				<input asp-for="bicycle_Id" class="form-control" />
+				<span asp-validation-for="bicycle_Id" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="customer_Id" class="control-label"></label>
+				<input asp-for="customer_Id" class="form-control" />
+				<span asp-validation-for="customer_Id" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="rentalDate" class="control-label"></label>
+				<input asp-for="rentalDate" class="form-control" />
+				<span asp-validation-for="rentalDate" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="returnDate" class="control-label"></label>
+				<input asp-for="returnDate" class="form-control" />
+				<span asp-validation-for="returnDate" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="admin_Id" class="control-label"></label>
+				<input asp-for="admin_Id" class="form-control" />
+				<span asp-validation-for="admin_Id" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="transactionType" class="control-label"></label>
+				<select asp-for="transactionType" class="form-control">
+					<option value="Short">Short</option>
+					<option value="Long">Long</option>
+				</select>
+				<span asp-validation-for="transactionType" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+				<a asp-action="Index">Back to List</a>
+			</div>
+		</form>
+    </div>
+</div>
+
+<div>
+    
+</div>
+

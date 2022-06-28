@@ -1,0 +1,83 @@
+﻿@model IEnumerable<BikesTest.Models.Transaction>
+
+@{
+	ViewData["Title"] = "Index";
+	var AdminSuspendedError = TempData["AdminSuspendedError"] as string;
+}
+
+<h1>Index</h1>
+
+@if (!string.IsNullOrEmpty(AdminSuspendedError))
+{
+	<span class="alert-danger">@AdminSuspendedError</span>
+}
+
+<p>
+	<a asp-action="Create">New Rental</a>
+	<a asp-action="GetTransaction">Return Bicycle</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.id)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.rentalDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.returnDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.customer.user.username)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.bicycle_Id)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.transactionType)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.costOfTransaction)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.id)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.rentalDate)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.returnDate)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.customer.user.username)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.bicycle.id)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.transactionType)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.costOfTransaction)
+			</td>
+			<td>
+				<a asp-action="Details" asp-route-id="@item.id">Details</a> |
+				<a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+				<a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+			</td>
+		</tr>
+		}
+
+	</tbody>
+</table>
+
+
+<a asp-action="DeletedIndex">View All Deleted Transactions</a>

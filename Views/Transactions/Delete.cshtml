@@ -1,0 +1,69 @@
+﻿@model BikesTest.Models.Transaction
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Transaction</h4>
+    <hr />
+	<dl class="row">
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.bicycle_Id)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.bicycle.id)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.customer.user.username)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.customer.user.username)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.rentalDate)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.rentalDate)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.returnDate)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.returnDate)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.durationOfTransaction)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.durationOfTransaction)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.admin.user.username)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.admin.user.username)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.transactionType)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.transactionType)
+		</dd>
+		<dt class="col-md-4">
+			@Html.DisplayNameFor(model => model.costOfTransaction)
+		</dt>
+		<dd class="col-md-12">
+			@Html.DisplayFor(model => model.costOfTransaction)
+		</dd>
+	</dl>
+    
+    <form method="post" asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
