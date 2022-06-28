@@ -19,6 +19,17 @@ namespace BikesTest.configs
 
             builder.HasData(new User
             {
+                id = 1,
+                birthday = DateTime.Parse("05/05/2000"),
+                email = "test1@test.com",
+                firstName = "test1",
+                lastName = "test1",
+                username = "test1",
+                password = Service.LoginServices.HashPassword("test1", DateTime.Parse("05/05/2000").ToString("MM/dd/yyyy"))
+            });
+
+            builder.HasData(new User
+            {
                 id = 2,
                 birthday = DateTime.Parse("05/05/2000"),
                 email = "admin@admin.com",
@@ -27,6 +38,8 @@ namespace BikesTest.configs
                 username = "admin",
                 password = Service.LoginServices.HashPassword("admin", DateTime.Parse("05/05/2000").ToString("MM/dd/yyyy"))
             });
+
+
         }
 
 

@@ -19,6 +19,15 @@ namespace BikesTest.configs
                    .HasForeignKey<Customer>(o => o.user_id)
                    .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasData(new Customer
+            {
+                id = 1,
+                user_id = 1,
+                isCurrentlyBiking = false,
+                numberOfBikesRented = 0,
+                timeBiked = 0,
+            }) ;
+
         }
     }
 }
