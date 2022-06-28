@@ -9,10 +9,10 @@
 *
 *  You have 2 options:
 *  either create a database on your localhost port by the name 
-*  "BicyclesTest@1.4", 
+*  "BicyclesTest1.4", 
 *  or create a new database by any name and change the connection string 
 *  located in the "appsettings.json" file to the connection string of your 
-*  new database (just change "Initial Catalog=BicyclesTest@1.4" 
+*  new database (just change "Initial Catalog=BicyclesTest1.4" 
 *  to "Initial Catalog=*new name*")
 *
 *  After creating the database a first migration is needed to populate it
