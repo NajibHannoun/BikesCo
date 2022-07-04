@@ -29,9 +29,9 @@ namespace BikesTest.ServiceExtentions
         {
             bike.isCurrentlyRented = false;
         }
-        public static void IncreaseEarningsToDate(this IBicycleService<Bicycle> _bService, Bicycle bike, Transaction transaction)
+        public static void IncreaseEarningsToDate(this IBicycleService<Bicycle> _bService, Bicycle bike, double transactionCost)
         {
-            bike.earningsToDate += (double)transaction.costOfTransaction;
+            bike.earningsToDate += transactionCost;
         }
         //public static void SetLastTransactionDate(this IBicycleService<Bicycle> _bService, Bicycle bike)
         //{

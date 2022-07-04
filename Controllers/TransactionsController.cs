@@ -87,10 +87,46 @@ namespace BikesTest.Controllers
 
                 return RedirectToAction("Details", "Transactions", new { id = transaction.id });
             }
-            catch(Exception e)
+            catch (CustomerDoesntExistException e)
+            {
+                ViewBag.usernames = _cService.GetUsernamesAndIds();
+                ModelState.AddModelError("customer_Id", e.Message);
+                return View(_tService.GetById(transaction.id));
+            }
+            catch (BikeDoesntExistExeption e)
+            {
+                ViewBag.usernames = _cService.GetUsernamesAndIds();
+                ModelState.AddModelError("bicycle_Id", e.Message);
+                return View(_tService.GetById(transaction.id));
+            }
+            catch (AdminDoesntExistException e)
+            {
+                ViewBag.usernames = _cService.GetUsernamesAndIds();
+                ModelState.AddModelError("admin_Id", e.Message);
+                return View(_tService.GetById(transaction.id));
+            }
+            catch (CurrentlyBikingException e)
+            {
+                ViewBag.usernames = _cService.GetUsernamesAndIds();
+                ModelState.AddModelError("customer_Id", e.Message);
+                return View(_tService.GetById(transaction.id));
+            }
+            catch (CurrentlyRentException e)
+            {
+                ViewBag.usernames = _cService.GetUsernamesAndIds();
+                ModelState.AddModelError("bicycle_Id", e.Message);
+                return View(_tService.GetById(transaction.id));
+            }
+            catch (SuspendedAdminException e)
+            {
+                ViewBag.usernames = _cService.GetUsernamesAndIds();
+                ModelState.AddModelError("admin_Id", e.Message);
+                return View(_tService.GetById(transaction.id));
+            }
+            catch (Exception e)
             {
                 ViewData["error"] = e.Message;
-                return View();
+                return View(_tService.GetById(transaction.id));
             }
         }
 

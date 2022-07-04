@@ -61,9 +61,6 @@ namespace BikesTest.Services
                 
                 _cService.SetIsCurrentlyBikingTrue(customer);
                 _bService.SetIsCurrentlyRentedTrue(bicycle);
-                //_bService.SetLastTransactionDate(bicycle);
-                _bService.IncrementTimesRented(bicycle);
-                //_bService.SetLastCustomerId(bicycle, row);
 
                 row.admin = null;
                 row.bicycle = null;
@@ -91,7 +88,8 @@ namespace BikesTest.Services
                 _bService.SetIsCurrentlyRentedFalse(bicycle);
                 this.SetTransactionDuration(lastTransaction);
                 this.CalculateTransactionCost(lastTransaction, bicycle);
-                _bService.IncreaseEarningsToDate(bicycle, lastTransaction);
+                _bService.IncrementTimesRented(bicycle);
+                _bService.IncreaseEarningsToDate(bicycle, (double)lastTransaction.costOfTransaction);
                 _cService.IncreaseTimeBiked(customer, (decimal)lastTransaction.durationOfTransaction);
                 _cService.IncrementBikesRented(customer);
 
@@ -119,7 +117,144 @@ namespace BikesTest.Services
 
         public Transaction Update(Transaction row)
         {
-            row = Create(row);
+            Transaction dbTransaction = this.GetById(row.id);
+
+            if (row.returnDate != null && dbTransaction.returnDate == null)
+                throw new CurrentlyRentException("This transaction is not over, go through the return bike process if you want to complete this transaction");
+            else if (row.returnDate != null)
+            {
+                if(row.returnDate != dbTransaction.returnDate || row.rentalDate != dbTransaction.rentalDate)
+                {
+                    dbTransaction.rentalDate = row.rentalDate;
+                    dbTransaction.returnDate = row.returnDate;
+                }
+
+                if (row.bicycle_Id != dbTransaction.bicycle_Id)
+                {
+                    Bicycle oldBicycle = dbTransaction.bicycle;
+                    _bService.IncreaseEarningsToDate(oldBicycle, -(double)dbTransaction.costOfTransaction); //old bike - old transaction cost
+                    _bService.DecrementTimesRented(oldBicycle);
+
+                    _db.Bicycles.Update(oldBicycle);
+
+                    Bicycle newBicycle = _bService.GetById(row.bicycle_Id);
+                    if (newBicycle == null)
+                        throw new BikeDoesntExistExeption("Bicycle doesn't exist in data base");
+                    else if (newBicycle.isCurrentlyRented)
+                        throw new CurrentlyRentException("Bicycle is currently rented");
+
+                    this.SetTransactionDuration(row);
+                    this.CalculateTransactionCost(row, newBicycle);
+
+                    _bService.IncreaseEarningsToDate(newBicycle, (double)dbTransaction.costOfTransaction);
+                    _bService.IncrementTimesRented(newBicycle);
+
+                    _db.Bicycles.Update(newBicycle); //maybe tracking problem
+
+                    if(dbTransaction.customer_Id != row.customer_Id)
+                    {
+                        Customer oldCustomer = dbTransaction.customer;
+                        _cService.IncreaseTimeBiked(oldCustomer, -(decimal)dbTransaction.durationOfTransaction);
+                        _cService.DecrementBikesRented(oldCustomer);
+                        _db.Customers.Update(oldCustomer);
+
+                        Customer newCustomer = _cService.GetById(row.customer_Id);
+                        if (newCustomer == null)
+                            throw new CustomerDoesntExistException("Customer doesn't exist in data base");
+                        else if (newCustomer.isCurrentlyBiking && newCustomer.id != dbTransaction.customer_Id)
+                            throw new CurrentlyBikingException("Customer is currently biking");
+
+                        _cService.IncreaseTimeBiked(newCustomer, (decimal)row.durationOfTransaction);
+                        _cService.IncrementBikesRented(newCustomer);
+                        _db.Customers.Update(newCustomer);
+                    }
+                    else
+                    {
+                        Customer oldCustomer = dbTransaction.customer;
+                        _cService.IncreaseTimeBiked(oldCustomer, -(decimal)dbTransaction.durationOfTransaction);
+                        _cService.IncreaseTimeBiked(oldCustomer, (decimal)row.durationOfTransaction);
+                        _db.Customers.Update(oldCustomer);
+                    }
+                    this.SetTransactionDuration(dbTransaction);
+                    this.CalculateTransactionCost(dbTransaction, newBicycle);
+                }
+                else
+                {
+                    Bicycle oldBicycle = dbTransaction.bicycle;
+                    _bService.IncreaseEarningsToDate(oldBicycle, -(double)dbTransaction.costOfTransaction);
+
+                    this.SetTransactionDuration(row);
+                    this.CalculateTransactionCost(row, oldBicycle);
+
+                    if (dbTransaction.customer_Id != row.customer_Id)
+                    {
+                        Customer oldCustomer = dbTransaction.customer;
+                        _cService.IncreaseTimeBiked(oldCustomer, -(decimal)dbTransaction.durationOfTransaction);
+                        _cService.DecrementBikesRented(oldCustomer);
+                        _db.Customers.Update(oldCustomer);
+
+                        Customer newCustomer = _cService.GetById(row.customer_Id);
+                        if (newCustomer == null)
+                            throw new CustomerDoesntExistException("Customer doesn't exist in data base");
+                        else if (newCustomer.isCurrentlyBiking && newCustomer.id != dbTransaction.customer_Id)
+                            throw new CurrentlyBikingException("Customer is currently biking");
+
+                        _cService.IncreaseTimeBiked(newCustomer, (decimal)row.durationOfTransaction);
+                        _cService.IncrementBikesRented(newCustomer);
+                        _db.Customers.Update(newCustomer);
+                    }
+                    else
+                    {
+                        Customer oldCustomer = dbTransaction.customer;
+                        _cService.IncreaseTimeBiked(oldCustomer, -(decimal)dbTransaction.durationOfTransaction);
+                        _cService.IncreaseTimeBiked(oldCustomer, (decimal)row.durationOfTransaction);
+                        _db.Customers.Update(oldCustomer);
+                    }
+
+                    this.SetTransactionDuration(dbTransaction);
+                    this.CalculateTransactionCost(dbTransaction, oldBicycle);
+
+                    _bService.IncreaseEarningsToDate(oldBicycle, (double)row.costOfTransaction);
+
+                    _db.Bicycles.Update(oldBicycle);
+                }
+            }
+            else if (row.returnDate == null)
+            {
+                if(row.rentalDate != dbTransaction.rentalDate)
+                {
+                    dbTransaction.rentalDate = row.rentalDate;
+                    if (dbTransaction.customer_Id != row.customer_Id)
+                    {
+                        Customer oldCustomer = _cService.GetById(dbTransaction.customer_Id);
+                        _cService.SetIsCurrentlyBikingFalse(oldCustomer);
+                        _db.Customers.Update(oldCustomer);
+                        Customer newCustomer = _cService.GetById(row.customer_Id);
+                        _cService.SetIsCurrentlyBikingTrue(newCustomer);
+                        _db.Customers.Update(newCustomer);
+                    }
+
+                    if (dbTransaction.bicycle_Id != row.bicycle_Id)
+                    {
+                        Bicycle oldBicycle = _bService.GetById(dbTransaction.bicycle_Id);
+                        _bService.SetIsCurrentlyRentedFalse(oldBicycle);
+                        _db.Bicycles.Update(oldBicycle);
+                        Bicycle newBicycle = _bService.GetById(row.bicycle_Id);
+                        _bService.SetIsCurrentlyRentedTrue(newBicycle);
+                        _db.Bicycles.Update(newBicycle);
+                    }
+                } 
+            }
+
+            Admin admin = _aService.GetByUserId(row.admin_Id);
+
+            dbTransaction.customer_Id = row.customer_Id;
+            dbTransaction.bicycle_Id = row.bicycle_Id;
+            dbTransaction.admin_Id = admin.id;
+            
+            _db.Transactions.Update(dbTransaction);  
+            _db.SaveChanges();
+
             return row;
         }
 
@@ -169,8 +304,8 @@ namespace BikesTest.Services
         public Transaction GetById(int? id)
         {
             return _db.Transactions.AsNoTracking()
-                                   .Where(o => o.id == id)
                                    .Where(o => o.isDeleted == false)
+                                   .Where(o => o.id == id)
                                    .Include(o => o.customer).ThenInclude(m => m.user)
                                    .Include(m => m.admin).ThenInclude(m => m.user)
                                    .Include(m => m.bicycle)
@@ -180,8 +315,8 @@ namespace BikesTest.Services
         public Transaction GetByDeletedId(int? id)
         {
             return _db.Transactions.AsNoTracking()
-                                   .Where(o => o.id == id)
                                    .Where(o => o.isDeleted == true)
+                                   .Where(o => o.id == id)
                                    .Include(o => o.customer).ThenInclude(m => m.user)
                                    .Include(m => m.admin).ThenInclude(m => m.user)
                                    .Include(m => m.bicycle)
@@ -191,8 +326,8 @@ namespace BikesTest.Services
         public ICollection<Transaction> GetByBicycleId(int? id)
         {
             return _db.Transactions.AsNoTracking()
-                                   .Where(o => o.bicycle_Id == id)
                                    .Where(o => o.isDeleted == false)
+                                   .Where(o => o.bicycle_Id == id)
                                    .Include(o => o.customer).ThenInclude(m => m.user)
                                    .Include(m => m.admin).ThenInclude(m => m.user)
                                    .Include(m => m.bicycle)
@@ -202,8 +337,8 @@ namespace BikesTest.Services
         public Transaction GetByUsername(string username)
         {
             return _db.Transactions.AsNoTracking()
-                      .Where(o => o.customer.id == _cService.GetByUsername(username).id && o.returnDate == null)
                       .Where(o => o.isDeleted == false)
+                      .Where(o => o.customer.id == _cService.GetByUsername(username).id && o.returnDate == null)
                       .Include(o => o.customer).ThenInclude(m => m.user)
                       .Include(m => m.admin).ThenInclude(m => m.user)
                       .Include(m => m.bicycle)
@@ -232,14 +367,14 @@ namespace BikesTest.Services
 
             if(row.returnDate != null)
             {
-                _bService.IncreaseEarningsToDate(bicycle, row);
+                _bService.IncreaseEarningsToDate(bicycle, (double)row.costOfTransaction);
                 _cService.IncreaseTimeBiked(customer, (decimal)row.durationOfTransaction);
+                _bService.DecrementTimesRented(bicycle);
                 _cService.DecrementBikesRented(customer);
             }
             else
             {
                 _bService.SetIsCurrentlyRentedFalse(bicycle);
-                _bService.DecrementTimesRented(bicycle);
                 _cService.SetIsCurrentlyBikingFalse(customer);
             }
 
